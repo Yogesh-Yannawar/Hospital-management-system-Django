@@ -1,0 +1,70 @@
+{% extends 'register_temp.html' %}
+{% load static %}
+{% block title %}Update Appointment{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-image: none;
+    }
+</style>
+<div class="card mt-5" style="max-width: 500px;margin-left: 500px;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-header bg-info-subtle">
+            <h3 class="text-center">Update Appointment</h3>
+        </div>
+        <div class="card-body">
+            <tr>
+                <th class="form-label">Doctor Name</th>
+                <td>
+                    <select name="doctor" class="form-select mb-3">
+                        <option disabled>-- Select Doctor --</option>
+                        {% for rec in qs %}
+                            <option value="{{rec.name}}" 
+                                {% if rec.name == appointment.doctor %}selected{% endif %}>
+                                {{rec.name}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="form-label">Patient Name</th>
+                <td>
+                    <select name="patient" class="form-select mb-3">
+                        <option disabled>-- Select Patient --</option>
+                        {% for val in data %}
+                            <option value="{{val.name}}" 
+                                {% if val.name == appointment.patient %}selected{% endif %}>
+                                {{val.name}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="form-label">Date</th>
+                <td><input type="date" name="specialization" class="form-control mb-3" ></td>
+            </tr>
+            <tr>
+                <th class="form-label">Time</th>
+                <td><input type="time" name="contact" class="form-control mb-3" ></td>
+            </tr>
+            <tr>
+                <th class="form-label">Description</th>
+                <td><textarea name="description" id="" rows="4" cols="50" class="form-control" ></textarea></td>
+            </tr>
+        </div>
+        <div class="card-footer d-flex gap-5">
+            <button class="btn btn-info w-50">SAVE</button>
+            <a href="{% url 'view_appoint' %}" class="btn btn-danger w-50 text-decoration-none">Cancel</a>
+        </div>
+    </form>
+</div>
+{% if errors %}
+<div class="alert alert-danger" style="max-width: 500px;margin-left: 500px;">
+    <button class="btn-close" data-bs-dismiss="alert"></button>
+    <p>{{errors}}</p>
+</div>
+{% endif %}
+{% endblock %}

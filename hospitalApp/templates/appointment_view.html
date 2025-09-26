@@ -1,0 +1,53 @@
+{% extends 'register_temp.html' %}
+{% load static %}
+{% block title %}Appointment{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-image: none;
+    }
+
+    table tr th,
+    td {
+        text-align: center;
+    }
+</style>
+<div class="mt-lg-5 " style="margin-left: 100px;">
+    <a href="{% url 'add_appoint' %}" class="btn btn-warning"><span class="bi bi-plus"> Add Appointment</span>
+    </a>
+</div>
+<table class="mt-5 border table-bordered w-100">
+    <thead>
+        <tr>
+            <th>Sno.</th>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Description</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rec in qs %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{rec.doctor}}</td>
+            <td>{{rec.patient}}</td>
+            <td>{{rec.date}}</td>
+            <td>{{rec.time}}</td>
+            <td>{{rec.description}}</td>
+            <td><a href="{% url 'update_appoint' rec.id %}" class="btn btn-warning"><span
+                        class="bi bi-box-arrow-in-down-left"></span></a></td>
+            <td><a href="{% url 'delete_appoint' rec.id %}" class="btn btn-danger"
+                    onclick="return confirm('Do u want to Delete this Record?')"><span class="bi bi-trash"></span></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8">No records are Available..</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

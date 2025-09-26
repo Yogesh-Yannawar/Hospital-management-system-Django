@@ -1,0 +1,63 @@
+{% extends 'register_temp.html' %}
+{% load static %}
+{% block title %}Patient{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-image: none;
+    }
+
+    table tr th,
+    td {
+        text-align: center;
+    }
+</style>
+<div class="mt-lg-5 d-flex justify-content-evenly">
+    <a href="{% url 'add_patient' %}" class="btn btn-warning"><span class="bi bi-plus"> Add Patient</span>
+    </a>
+    <form class="input-group w-25" action="/patient_search/">
+        <input type="text" name="name" class="form-control w-25" placeholder="enter patient name">
+        <button class="btn btn-info"><span class="bi bi-search"></span></button>
+    </form>
+</div>
+<table class="mt-5 border table-bordered w-100">
+    <thead>
+        <tr>
+            <th>Sno.</th>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Contact</th>
+            <th colspan="2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rec in qs %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>
+                {% if rec.profile %}
+                <img src="{{ rec.profile.url }}" alt="" height="100" width="100">
+                {% else %}
+                <img src="{% static 'images/default_profile.png' %}" alt="No Image" height="100" width="100">
+                {% endif %}
+            </td>
+            <td>{{rec.name}}</td>
+            <td>{{rec.age}}</td>
+            <td>{{rec.gender}}</td>
+            <td>{{rec.contact}}</td>
+            <td><a href="{% url 'update_patient' rec.id %}" class="btn btn-warning"><span
+                        class="bi bi-box-arrow-in-down-left"></span></a></td>
+            <td><a href="{% url 'delete_patient' rec.id %}" class="btn btn-danger"
+                    onclick="return confirm('Do u want to Delete this Record?')"><span class="bi bi-trash"></span></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No records are Available..</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

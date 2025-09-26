@@ -1,0 +1,37 @@
+{% extends 'register_temp.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="card" style="max-width: 500px;margin-top: 100px;margin-left: 200px;">
+    <div class="card-header">
+        <h4 class="text-center"><span class="bi bi-lock me-4"></span> Login Form</h4>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="card-body">
+            <tr>
+                <th class="form-label">Username</th>
+                <td><input type="text" name="username" class="form-control mb-3"></td>
+            </tr>
+            <tr>
+                <th class="form-label">Password</th>
+                <td><input type="password" name="password" class="form-control mb-3"></td>
+            </tr>
+        </div>
+    
+        <div class="card-footer">
+            <button class="btn btn-primary w-100">Login</button>
+            <p class="mt-2">Don't Have an Account?
+                <a href="{% url 'register' %}">Register here</a>
+            </p>
+        </div>
+    </form>
+</div>
+
+{% if errors %}
+<div class="alert alert-danger mt-lg-3" style="margin-left: 200px;width: 500px;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <h5>{{errors}}</h5>
+</div>
+{% endif %}
+{% endblock %}

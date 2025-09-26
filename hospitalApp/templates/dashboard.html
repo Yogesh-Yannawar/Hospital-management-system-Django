@@ -1,0 +1,49 @@
+{% extends 'register_temp.html' %}
+{% load static %}
+{% block title %}Update Patient{% endblock %}
+{% block content %}
+<style>
+    body{
+        background-image: none;
+    }
+</style>
+
+<div class="d-flex justify-content-center flex-wrap" style="gap: 50px; margin-top: 150px;">
+    <!-- Card 1 -->
+    <div class="card shadow-lg rounded" style="width: 18rem;">
+        <div class="card-body text-center">
+            <img src="{% static 'images/doctor.png' %}" alt="Doctor" class="img-fluid rounded-circle mb-3" width="150" height="150">
+            <h5 class="card-title">Doctor</h5>
+            <p class="card-text">Access doctor-specific features and manage appointments.</p>
+        </div>
+        <div class="card-footer p-2">
+            <a href="{% url 'doctor_list' %}" class="btn btn-dark w-100">Doctor View</a>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card shadow-lg rounded" style="width: 18rem;">
+        <div class="card-body text-center">
+            <img src="{% static 'images/patient.jpg' %}" alt="Nurse" class="img-fluid rounded-circle mb-3" width="150" height="150">
+            <h5 class="card-title">Nurse</h5>
+            <p class="card-text">Manage patient care and schedules.</p>
+        </div>
+        <div class="card-footer p-2">
+            <a href="{% url 'patient_list' %}" class="btn btn-dark w-100">Nurse View</a>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card shadow-lg rounded" style="width: 18rem;">
+        <div class="card-body text-center">
+            <img src="{% static 'images/appointment1.png' %}" alt="Receptionist" class="img-fluid rounded-circle mb-3" width="150" height="150">
+            <h5 class="card-title">Receptionist</h5>
+            <p class="card-text">Manage appointments and patient registrations.</p>
+        </div>
+        <div class="card-footer p-2">
+            <a href="{% url 'view_appoint' %}" class="btn btn-dark w-100">Receptionist View</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

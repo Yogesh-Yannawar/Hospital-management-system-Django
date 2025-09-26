@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <title>{% block title %}Doctor{% endblock %}</title>
+    <style>
+        body{
+            background: url("{% static 'images/bg.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        nav{
+            background-color: rgb(94, 94, 245);
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;            
+        }
+        ul{
+            display: flex;
+            gap: 10px;
+        }
+        ul li a{
+            font-size: 22px;
+            color: white;
+        }
+        ul li a:hover{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <nav >
+        <h3 class="fw-bold text-white ms-5">Hospital Management</h3>
+        <ul class="list-unstyled">
+            {% if not user.is_authenticated %}
+            <li><a href="/" class="text-decoration-none  me-4">Register</a></li>
+            <li><a href="{% url 'login' %}" class="text-decoration-none  me-4">Login</a></li>
+            {% else %}
+            <li><a href="{% url 'doctor_list' %}" class="text-decoration-none  me-4">Doctor</a></li>
+            <li><a href="{% url 'patient_list' %}" class="text-decoration-none  me-4">Patient</a></li>
+            <li><a href="{% url 'view_appoint' %}" class="text-decoration-none  me-4">Appointment</a></li>
+            <li><a href="/logout" class="text-decoration-none  me-4">Logout</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% block content %}
+    <div class="card" style="max-width: 500px;margin-top: 50px;margin-left: 200px;">
+    <div class="card-header">
+        <h4 class="text-center"><span class="bi bi-person"></span> Register Form</h4>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+    
+    <div class="card-body">
+        <tr>
+            <th class="form-label">Username</th>
+            <td><input type="text" name="username" class="form-control mb-3"></td>
+        </tr>
+        <tr>
+            <th class="form-label">Email</th>
+            <td><input type="email" name="email" class="form-control mb-3"></td>
+        </tr>
+        <tr>
+            <th class="form-label">Password</th>
+            <td><input type="password" name="password1" class="form-control mb-3"></td>
+        </tr>
+        <tr>
+            <th class="form-label">Confirm Password</th>
+            <td><input type="password" name="password2" class="form-control mb-3"></td>
+        </tr>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary w-100">Register</button>
+        <p class="mt-2">Already Have an Account?
+            <a href="{% url 'login' %}">Login here</a>
+        </p>
+    </div>
+    </form>
+    
+</div>
+{% if errors %}
+<div class="alert alert-danger mt-lg-3" style="margin-left: 200px;width: 500px;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <h5>{{errors}}</h5>
+</div>
+{% endif %}
+    {% endblock %}
+</body>
+</html>

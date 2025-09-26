@@ -1,0 +1,49 @@
+{% extends 'register_temp.html' %}
+{% load static %}
+{% block title %}ADD Patient{% endblock %}
+{% block content %}
+<style>
+    body{
+        background-image: none;
+    }
+</style>
+<div class="card mt-2" style="max-width: 500px;margin-left: 500px;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-header bg-info-subtle">
+            <h3 class="text-center">Patient ADD View</h3>
+        </div>
+        <div class="card-body">
+        <tr>
+            <th class="form-label">Name</th>
+            <td><input type="text" name="name" class="form-control mb-3"></td>
+        </tr>
+        <tr>
+            <th class="form-label">Age</th>
+            <td><input type="number" name="age" class="form-control mb-3"></td>
+        </tr>
+        <tr>
+            <th class="form-label">Gender</th>
+            <td><input type="text" name="gender" class="form-control mb-3"></td>
+        </tr>
+        <tr>
+            <th class="form-label">Contact</th>
+            <td><input type="number" name="contact" class="form-control mb-3"></td>
+        </tr>
+        <tr>
+            <th class="form-label">Profile</th>
+            <td><input type="file" name="profile" class="form-control mb-3"></td>
+        </tr>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-info w-75 ms-lg-5">SUBMIT</button>
+        </div>
+    </form>
+</div>
+{% if errors %}
+<div class="alert alert-danger" style="max-width: 500px;margin-left: 500px;">
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+        <p>{{errors}}</p>
+</div>
+{% endif %}
+{% endblock %}

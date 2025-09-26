@@ -1,0 +1,63 @@
+{% extends 'register_temp.html' %}
+{% load static %}
+{% block title %}ADD Appointment{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-image: none;
+    }
+</style>
+<div class="card mt-5" style="max-width: 500px;margin-left: 500px;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-header bg-info-subtle">
+            <h3 class="text-center">ADD Appointment</h3>
+        </div>
+        <div class="card-body">
+            <tr>
+                <th class="form-label">Doctor Name</th>
+                <td>
+                    <select name="doctor" class="form-select mb-3">
+                        <option selected disabled>-- Select Doctor --</option>
+                        {% for rec in qs %}
+                        <option value="{{rec.id}}">{{rec.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="form-label">Patient Name</th>
+                <td>
+                    <select name="patient" class="form-select mb-3">
+                        <option selected disabled>-- Select Patient --</option>
+                        {% for val in data %}
+                        <option value="{{val.id}}">{{val.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th class="form-label">Date</th>
+                <td><input type="date" name="date" class="form-control mb-3"></td>
+            </tr>
+            <tr>
+                <th class="form-label">Time</th>
+                <td><input type="time" name="time" class="form-control mb-3"></td>
+            </tr>
+            <tr>
+                <th class="form-label">Description</th>
+                <td><textarea name="description" id="" rows="4" cols="50" class="form-control"></textarea></td>
+            </tr>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-info w-75 ms-lg-5">SUBMIT</button>
+        </div>
+    </form>
+</div>
+{% if errors %}
+<div class="alert alert-danger" style="max-width: 500px;margin-left: 500px;">
+    <button class="btn-close" data-bs-dismiss="alert"></button>
+    <p>{{errors}}</p>
+</div>
+{% endif %}
+{% endblock %}
